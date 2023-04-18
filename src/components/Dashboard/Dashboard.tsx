@@ -11,7 +11,7 @@ export default function Dashboard (){
     if(!user || !user.uid){
       navigate('/login');
     }
-  }, [])
+  }, [user])
 
   return (
     <h1>Dashboard Test</h1>

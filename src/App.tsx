@@ -6,12 +6,10 @@ import { onAuthStateChangedListener } from "./utils/firebase"
 import { useDispatch } from "react-redux"
 import { setUser } from "./utils/slices/userSlice"
 
-
 export default function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
-
 
   const dispatch = useDispatch();
 

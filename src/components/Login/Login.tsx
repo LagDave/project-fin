@@ -3,12 +3,22 @@ import { loginWithGoogle, onAuthStateChangedListener, signOutFromApp } from "../
 import { useSelector, useDispatch } from "react-redux"
 import { setUser } from "../../utils/slices/userSlice"
 import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+import { IconBrandGoogle } from '@tabler/icons-react';
 
 export default function Login() {
 
   const user = useSelector((state: any) => state.user.userData) 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+
+  // route guard - prevent logged in users from accessing login page
+  useEffect(() => {
+    if(user && user.uid){
+      navigate('/dashboard');
+    }
+  }, [user])
 
   // handlers
     const loginWithGoogleHandler = () => {
@@ -17,21 +27,14 @@ export default function Login() {
           uid: result.user.uid,
           email: result.user.email,
         }))
-        navigate('/dashboard', {replace: true})
       })
     }
     
     const logOutHandler = () => {
       signOutFromApp().then(result => {
         dispatch(setUser({}))
-        navigate('/login', {replace: true})
       })
     }
-
-    const redirectToDashboard = () => {
-      navigate('/dashboard');
-    }
-  
 
   return (
     <Container size="xs">
@@ -40,26 +43,9 @@ export default function Login() {
           direction="column"
           align="center"
         >
-          <Text ta="center" fz="xl" fw="bold">Let's get stashin'!</Text>
+          <Text ta="center" fz="sm">The door to financial freedom</Text>
           <Space h="md" />
-
-          {
-            (user && user.uid) ? (
-              <Flex 
-                gap="xs"
-                align="center"
-              >
-                <Button variant="gradient" gradient={{ from: 'teal', to: 'lime', deg: 105 }} onClick={redirectToDashboard}>Let's go</Button>
-                <Text fz="xs">or</Text>
-                <Button  variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} color="dark" onClick={logOutHandler}>Log out</Button>
-              </Flex>
-            )
-            :
-            (
-              <Button variant="gradient" gradient={{ from: 'indigo', to: 'cyan' }} onClick={loginWithGoogleHandler}>Login with Google</Button>
-            )
-          }
-          
+          <Button leftIcon={<IconBrandGoogle size="1.1rem"/>} onClick={loginWithGoogleHandler}>Login with Google</Button>
         </Flex>
       </Card>
     </Container>

@@ -2,7 +2,7 @@ import {
   AppShell,
   useMantineTheme,
   createStyles,
-
+  Container
 } from '@mantine/core';
 
 import { Route, Routes } from 'react-router';
@@ -30,15 +30,15 @@ export default function Layout() {
       }}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={ <Sidenav/> }
       footer={ <AppFooter/> }
       header={ <AppHeader/> }
     >
-    
-    <Routes>
-      <Route path="/dashboard" element={ <Dashboard/> } />
-      <Route path="/login" element={ <Login/> } />
-    </Routes>
+    <Container size="xl">
+      <Routes>
+        <Route path="/dashboard" element={ <Dashboard/> } />
+        <Route path="/login" element={ <Login/> } />
+      </Routes>
+    </Container>
       
     </AppShell>
   );
