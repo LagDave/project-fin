@@ -9,13 +9,15 @@ import { IconBrandGoogle } from '@tabler/icons-react';
 export default function Login() {
 
   const user = useSelector((state: any) => state.user.userData) 
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
 
   // route guard - prevent logged in users from accessing login page
   useEffect(() => {
-    if(user && user.uid){
+    console.log(isLoggedIn)
+    if(user && user.uid && isLoggedIn){
       navigate('/dashboard');
     }
   }, [user])
@@ -23,16 +25,11 @@ export default function Login() {
   // handlers
     const loginWithGoogleHandler = () => {
       loginWithGoogle().then(result => {
+        localStorage.setItem('isLoggedIn', 'true');
         dispatch(setUser({
           uid: result.user.uid,
           email: result.user.email,
         }))
-      })
-    }
-    
-    const logOutHandler = () => {
-      signOutFromApp().then(result => {
-        dispatch(setUser({}))
       })
     }
 

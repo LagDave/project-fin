@@ -23,6 +23,7 @@ export default function AppHeader() {
   const dark = colorScheme === 'dark';
 
   const user = useSelector((state: any) => state.user.userData);
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ export default function AppHeader() {
             })}>
 
               {
-                (user && user.uid) &&  <Button onClick={logOutHandler} leftIcon={<IconLogout size="1.1rem" />} color="gray">Logout</Button>
+                (isLoggedIn) &&  <Button onClick={logOutHandler} leftIcon={<IconLogout size="1.1rem" />} color="gray">Logout</Button>
               }
               <Space w="sm"/>
               <Button 

@@ -35,6 +35,7 @@ const app = initializeApp(firebaseConfig);
 
   // sign out
   const signOutFromApp = () => {
+    localStorage.removeItem('isLoggedIn');
     return signOut(auth);
   }
 
