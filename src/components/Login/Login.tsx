@@ -1,5 +1,5 @@
 import { Text, Card, Button, Space, Container, Flex } from "@mantine/core"
-import { loginWithGoogle, onAuthStateChangedListener, signOutFromApp } from "../../utils/firebase"
+import { loginWithGoogle, onAuthStateChangedListener, signOutFromApp } from "../../utils/firebase/firebase_main_portal"
 import { useSelector, useDispatch } from "react-redux"
 import { setUser } from "../../utils/slices/userSlice"
 import { useNavigate } from "react-router-dom"

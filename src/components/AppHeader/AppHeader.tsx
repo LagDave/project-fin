@@ -12,7 +12,7 @@ import {
 import { useMantineColorScheme } from "@mantine/core";
 import { useSelector } from "react-redux";
 import { IconSun, IconMoonStars, IconLogout } from '@tabler/icons-react';
-import { signOutFromApp } from "../../utils/firebase";
+import { signOutFromApp } from "../../utils/firebase/firebase_main_portal";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../utils/slices/userSlice";
 import { useNavigate } from "react-router";
