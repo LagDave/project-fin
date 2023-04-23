@@ -6,10 +6,10 @@ import {
   Box,
   Header,
   Container,
-  MediaQuery
+  MediaQuery,
+  Anchor
 } from "@mantine/core"
-import { useState } from "react";
-import { useMantineTheme, useMantineColorScheme } from "@mantine/core";
+import { useMantineColorScheme } from "@mantine/core";
 import { useSelector } from "react-redux";
 import { IconSun, IconMoonStars, IconLogout } from '@tabler/icons-react';
 import { signOutFromApp } from "../../utils/firebase";
@@ -50,13 +50,17 @@ export default function AppHeader() {
             </Flex> 
             <Box sx={() => ({
               marginLeft: 'auto',
-              display: 'flex'
+              display: 'flex',
+              alignItems: 'center'
             })}>
 
               {
-                (isLoggedIn) &&  <Button onClick={logOutHandler} leftIcon={<IconLogout size="1.1rem" />} color="gray">Logout</Button>
+                (isLoggedIn) &&  
+                <Anchor color="grey" fz="sm" style={{ display: 'flex', alignItems: 'center' }} onClick={logOutHandler}>
+                  <IconLogout size="1rem" /> <Space w='5px' /> Log out
+                </Anchor>
               }
-              <Space w="sm"/>
+              <Space w="lg"/>
               <Button 
                 variant="outline"
                 color={dark ? 'orange' : 'gray'}

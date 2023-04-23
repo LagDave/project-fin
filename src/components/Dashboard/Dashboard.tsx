@@ -2,6 +2,9 @@ import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 
+import StashList from "./StashList"
+import { Grid } from "@mantine/core"
+
 export default function Dashboard (){
 
   const user = useSelector((state: any) => state.user.userData)
@@ -15,6 +18,10 @@ export default function Dashboard (){
   }, [user])
 
   return (
-    <h1>Dashboard Test</h1>
+    <Grid>
+      <Grid.Col span={4}>
+        <StashList/>
+      </Grid.Col>
+    </Grid>
   )
 }
