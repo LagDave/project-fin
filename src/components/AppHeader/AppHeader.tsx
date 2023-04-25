@@ -59,7 +59,7 @@ export default function AppHeader() {
                 (isLoggedIn) ?  
                 <>
                   <Link to="/dashboard">
-                    <Anchor color="grey" fz="sm" style={{ display: 'flex', alignItems: 'center' }}>
+                    <Anchor component="span" color="grey" fz="sm" style={{ display: 'flex', alignItems: 'center' }}>
                       <IconDashboard size="1rem" /> <Space w='5px' /> Dashboard
                     </Anchor>
                   </Link>
@@ -73,7 +73,7 @@ export default function AppHeader() {
 
                 <>
                   <Link to="/login">
-                    <Anchor color="grey" fz="sm" style={{ display: 'flex', alignItems: 'center' }}>
+                    <Anchor component="span" color="grey" fz="sm" style={{ display: 'flex', alignItems: 'center' }}>
                       <IconLogin size="1rem" /> <Space w='5px' /> Login
                     </Anchor>
                   </Link>

@@ -1,5 +1,5 @@
 import { Button, Modal, Grid, Space, Text, Input, Loader, Card } from "@mantine/core";
-import {IconPlus} from "@tabler/icons-react"
+import {IconPlus, IconMoodSad} from "@tabler/icons-react"
 import StashItem from "./StashItem"
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 export default function StashList(){
 
-  const [currentStashes, setCurrentStashes] = useState<any>([]);
+  const [currentStashes, setCurrentStashes] = useState<any>(null);
   const [opened, { open, close }] = useDisclosure(false);
   const [stashName, setStashName] = useState('');
   const user = useSelector((state: any) => state.user.userData);
@@ -43,6 +43,39 @@ export default function StashList(){
     close();
   }
 
+  const StashListRender = () => {
+    if (currentStashes == null){
+      return (
+          <Grid.Col span={12}>
+            <Card style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Loader size="15px" color="gray" /> <Space w="10px" /> <Text color="gray" fz='xs'>Loading Stashes...</Text>
+            </Card>
+          </Grid.Col> 
+        )
+    }else{
+      if(currentStashes == 0){
+        return (
+          <Grid.Col span={12}>
+            <Card style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} color="gray" fz='xs'>
+                <IconMoodSad size='15px'/> <Space w="10px" /> No stash was found <Space w='xs' />
+              </Text>
+            </Card>
+          </Grid.Col> 
+        )
+        
+      }else{
+        return (
+          currentStashes.map((item: any) => 
+            <Grid.Col key={item.id} span={12}>
+              <StashItem  details={item}/>
+            </Grid.Col>
+          )
+        )
+      }
+    }
+  }
+
   return (
     <>
       <Grid style={{ marginTop: '0' }} gutter='25px' align="center" justify="flex-end">
@@ -56,19 +89,8 @@ export default function StashList(){
 
         <Grid.Col span={12}>
           <Grid>
-            {
-              currentStashes.length ? currentStashes.map((item: any) => 
-                <Grid.Col key={item.id} span={12}>
-                  <StashItem  details={item}/>
-                </Grid.Col>
-              ) : 
-              <Grid.Col span={12}>
-                <Card style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <Loader size="15px" color="gray" /> <Space w="10px" /> <Text color="gray" fz='xs'>Loading Stashes...</Text>
-                </Card>
-              </Grid.Col>
-            }
-          </Grid>
+            <StashListRender/>
+         </Grid>
         </Grid.Col>
 
       </Grid>
