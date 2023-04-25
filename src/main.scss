@@ -1,8 +1,7 @@
-a{
-  text-decoration: none;
+a,span{
+  text-decoration: none !important;
 
   &:hover{
-    color: black;
     text-decoration: none !important;
   }
 }
