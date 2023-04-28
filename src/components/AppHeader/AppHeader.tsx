@@ -6,16 +6,17 @@ import {
   Box,
   Header,
   Container,
-  MediaQuery
+  MediaQuery,
+  Anchor
 } from "@mantine/core"
-import { useState } from "react";
-import { useMantineTheme, useMantineColorScheme } from "@mantine/core";
+import { useMantineColorScheme } from "@mantine/core";
 import { useSelector } from "react-redux";
-import { IconSun, IconMoonStars, IconLogout } from '@tabler/icons-react';
-import { signOutFromApp } from "../../utils/firebase";
+import { IconSun, IconMoonStars, IconDashboard, IconLogout, IconLogin } from '@tabler/icons-react';
+import { signOutFromApp } from "../../utils/firebase/firebase_main_portal";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../utils/slices/userSlice";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function AppHeader() {
 
@@ -36,8 +37,8 @@ export default function AppHeader() {
   }
 
   return (
-    <Header height={{ base: 70}} p="md">
-      <Container size="xl">
+    <Header style={{ display: 'flex', width: '100%', alignItems: 'center' }} height={{ base: 70}} p="md">
+      <Container style={{ width: '100%' }} size="xl">
           <Flex>
             <Flex
               align="center"
@@ -50,20 +51,41 @@ export default function AppHeader() {
             </Flex> 
             <Box sx={() => ({
               marginLeft: 'auto',
-              display: 'flex'
+              display: 'flex',
+              alignItems: 'center'
             })}>
 
               {
-                (isLoggedIn) &&  <Button onClick={logOutHandler} leftIcon={<IconLogout size="1.1rem" />} color="gray">Logout</Button>
+                (isLoggedIn) ?  
+                <>
+                  <Link to="/dashboard">
+                    <Anchor component="span" color="grey" fz="sm" style={{ display: 'flex', alignItems: 'center' }}>
+                      <IconDashboard size="1rem" /> <Space w='5px' /> Dashboard
+                    </Anchor>
+                  </Link>
+                  <Space w="lg"/>
+                  <Anchor color="grey" fz="sm" style={{ display: 'flex', alignItems: 'center' }} onClick={logOutHandler}>
+                    <IconLogout size="1rem" /> <Space w='5px' /> Log out
+                  </Anchor>
+                </>
+
+                :
+
+                <>
+                  <Link to="/login">
+                    <Anchor component="span" color="grey" fz="sm" style={{ display: 'flex', alignItems: 'center' }}>
+                      <IconLogin size="1rem" /> <Space w='5px' /> Login
+                    </Anchor>
+                  </Link>
+                </>
               }
-              <Space w="sm"/>
-              <Button 
+              {/* <Button 
                 variant="outline"
                 color={dark ? 'orange' : 'gray'}
                 onClick={() => toggleColorScheme()}
               >
                 {dark ? <IconSun size="1.1rem" /> : <IconMoonStars size="1.1rem" />}
-              </Button>
+              </Button> */}
             </Box>
           </Flex>
       </Container>

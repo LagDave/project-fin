@@ -2,7 +2,7 @@ import Layout from "./Layout";
 import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core'
 import { useState } from "react";
 import { useEffect } from "react"
-import { onAuthStateChangedListener } from "./utils/firebase"
+import { onAuthStateChangedListener } from "./utils/firebase/firebase_main_portal"
 import { useDispatch } from "react-redux"
 import { setUser } from "./utils/slices/userSlice"
 
@@ -35,6 +35,9 @@ export default function App() {
         theme={{
           colorScheme,
           fontFamily: 'Varela Round, sans-serif',
+          colors: {
+            'white': ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff'],
+          }
         }}
       >
         <Layout/>
