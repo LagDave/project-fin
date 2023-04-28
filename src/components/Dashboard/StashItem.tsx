@@ -16,7 +16,7 @@ export default function StashItem({details}: any) {
   const deleteStashHandler = async () => {
     close()
     setTimeout(() => {
-      deleteStash(user.uid, details.name)
+      deleteStash(user.uid, details.id)
     }, 100)
   }
 

@@ -19,9 +19,10 @@ export default function StashList(){
       const unsubscribe = onStashUpdate(user.uid, (retrievedStashes: any) => {
         setCurrentStashes([])
         retrievedStashes.forEach((doc: any) => {
+          const stashData = doc.data();
           const currentStashData = {
             id: doc.id,
-            name: doc.id, 
+            name: stashData.stashName, 
             total: 0
           };
           setCurrentStashes((previousStashes: any) => [...previousStashes, currentStashData])
