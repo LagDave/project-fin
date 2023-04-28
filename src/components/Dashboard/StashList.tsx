@@ -69,7 +69,7 @@ export default function StashList(){
         return (
           currentStashes.map((item: any) => 
             <Grid.Col key={item.id} span={12}>
-              <StashItem  details={item}/>
+              <StashItem  stashItem={item}/>
             </Grid.Col>
           )
         )
