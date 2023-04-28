@@ -1,9 +1,25 @@
-import { IconPencil, IconTrash } from "@tabler/icons-react";
 import "./stash-item.styles.scss";
 
-import { Button, Card, Grid, Text, Flex } from "@mantine/core";
+import { IconPencil, IconTrash } from "@tabler/icons-react";
+
+import { Button, Card, Grid, Text, Flex, Modal } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+
+import { deleteStash } from "../../utils/firebase/portals/firebase_stash_portal";
+import { useSelector } from "react-redux";
 
 export default function StashItem({details}: any) {
+
+  const [opened, { open, close }] = useDisclosure(false);
+  const user = useSelector((state: any) => state.user.userData);
+  
+  const deleteStashHandler = async () => {
+    close()
+    setTimeout(() => {
+      deleteStash(user.uid, details.name)
+    }, 100)
+  }
+
   return (
     <div className="stash-item">
       <Card>
@@ -21,10 +37,17 @@ export default function StashItem({details}: any) {
       </Card>
 
       <Flex className="stash-action-buttons" gap="5px">
-        <Button className="delete-button" color="red.3" compact><IconTrash size='1rem'/></Button>
+        <Button onClick={open} className="delete-button" color="red.3" compact><IconTrash size='1rem'/></Button>
         <Button className="delete-button" color="dark.2" compact><IconPencil size='1rem'/></Button>
       </Flex>
-      
+
+      <Modal padding='xl' opened={opened} onClose={close} title="Delete stash" >
+        <Flex justify='space-between' align='center'>
+          <Text fz="sm">{`This will delete ${details.name} forever. Are you sure?`}</Text>
+          <Button onClick={deleteStashHandler} color="red.5" compact>YES</Button>
+        </Flex>
+      </Modal>
+
     </div>
   )
 }
